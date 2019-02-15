@@ -21,12 +21,12 @@ public class StoreController {
 	private StoreRepository repository;
 
 	@PostMapping("/store")
-	public Store createStore(@RequestBody Store store) {
+	public Store create(@RequestBody Store store) {
 		return repository.save(store);
 	}	
 	
 	@PutMapping("/store/{id}")
-	public Store updateStore(@PathVariable Long id, @RequestBody Store store) {
+	public Store update(@PathVariable Long id, @RequestBody Store store) {
 		return repository.findById(id).map(newStore -> {
 			newStore.setAddress(store.getAddress());
 			newStore.setName(store.getName());
@@ -37,17 +37,17 @@ public class StoreController {
 	}
 	
 	@GetMapping("/store")
-	public Iterable<Store> retrieveAllStores() {
+	public Iterable<Store> retrieveAll() {
 		return repository.findAll();
 	}
 
 	@GetMapping("/store/{id}")
-	public Optional<Store> retrieveStoreById(@PathVariable Long id) {
+	public Optional<Store> retrieveById(@PathVariable Long id) {
 		return repository.findById(id);
 	}
 
 	@GetMapping("/store/name/{name}/address/{address}")
-	public List<Store> retrieveStoreByNameAndAddress(@PathVariable String name, @PathVariable String address) {
+	public List<Store> retrieveByNameAndAddress(@PathVariable String name, @PathVariable String address) {
 		return repository.findByNameAndAddress(name, address);
 	}
 
