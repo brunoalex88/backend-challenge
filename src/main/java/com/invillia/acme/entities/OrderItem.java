@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,8 +27,8 @@ public class OrderItem {
 	@Column(name = "ORDER_ITEM_QUANTITY")
 	private Long quantity;
 
-	@ManyToOne()
-	@JoinColumn(name = "ORDER_ID")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ORDER_ID", nullable = false)
 	private Order order;
 	
 	public String getDescription() {
@@ -54,4 +55,11 @@ public class OrderItem {
 		this.quantity = quantity;
 	}
 
+	public Order getOrder() {
+		return order;
+	}
+	
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 }
