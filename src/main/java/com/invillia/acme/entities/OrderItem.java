@@ -2,11 +2,34 @@ package com.invillia.acme.entities;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name = "TB_ORDER_ITEM")
 public class OrderItem {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name = "ORDER_ITEM_DESCRIPTION")
 	private String description;
+	
+	@Column(name = "ORDER_ITEM_PRICE")
 	private BigDecimal price;
+	
+	@Column(name = "ORDER_ITEM_QUANTITY")
 	private Long quantity;
 
+	@ManyToOne()
+	@JoinColumn(name = "ORDER_ID")
+	private Order order;
+	
 	public String getDescription() {
 		return description;
 	}
