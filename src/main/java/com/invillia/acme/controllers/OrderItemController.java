@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.invillia.acme.entities.OrderItem;
+import com.invillia.acme.exceptions.ResourceNotFoundException;
 import com.invillia.acme.repository.OrderItemRepository;
 import com.invillia.acme.repository.OrderRepository;
 
@@ -26,13 +27,13 @@ public class OrderItemController {
 	}
 	
 	@PostMapping("/order/{orderId}/items")
-	public OrderItem addOrderItemToOrder(@PathVariable Long orderId, @RequestBody OrderItem orderItem) throws Exception {
+	public OrderItem addOrderItemToOrder(@PathVariable Long orderId, @RequestBody OrderItem orderItem) throws ResourceNotFoundException {
 		return orderRepository.findById(orderId)
 				.map(order -> {
 					orderItem.setOrder(order);
 					return orderItemrepository.save(orderItem);
 				}).orElseThrow(() -> 
-					new Exception("Order informada não foi encontrada")
+					new ResourceNotFoundException("Ordem informada: " + orderId.toString() + " não foi encontrada")
 				);
 	}
 	
