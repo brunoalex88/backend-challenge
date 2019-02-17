@@ -9,18 +9,25 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity(name = "TB_ORDER")
 public class Order {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id;	
 	
-	@Column(name = "ORDER_ADDRESS")
+	@Column(name = "ORDER_ADDRESS", length=150)
+	@NotBlank
 	private String address;
 	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	@Column(name = "ORDER_CONFIRMATION_DATE")
+	@NotNull
 	private Date confirmationDate;
 	
 	@Column(name = "ORDER_STATUS")
@@ -50,5 +57,5 @@ public class Order {
 	public void setStatus(StatusEnum status) {
 		this.status = status;
 	}
-
+	
 }
