@@ -10,21 +10,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name = "TB_ORDER_ITEM")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class OrderItem {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "ORDER_ITEM_DESCRIPTION")
+	@Column(name = "ORDER_ITEM_DESCRIPTION", length=60)
+	@NotBlank
 	private String description;
 	
-	@Column(name = "ORDER_ITEM_PRICE")
+	@Column(name = "ORDER_ITEM_PRICE", precision=2)
+	@NotBlank
 	private BigDecimal price;
 	
 	@Column(name = "ORDER_ITEM_QUANTITY")
+	@NotBlank
 	private Long quantity;
 
 	@ManyToOne(fetch = FetchType.LAZY)
