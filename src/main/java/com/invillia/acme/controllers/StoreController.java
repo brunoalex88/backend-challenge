@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.invillia.acme.entities.Store;
 import com.invillia.acme.repository.StoreRepository;
 
-@RestController
+@RestController 
 public class StoreController {
 
 	@Autowired
@@ -31,9 +31,7 @@ public class StoreController {
 			newStore.setAddress(store.getAddress());
 			newStore.setName(store.getName());
 			return repository.save(newStore);
-		}).orElseGet(() -> {
-			return repository.save(store);
-		});
+		}).orElseGet(() -> repository.save(store));
 	}
 	
 	@GetMapping("/store")
